@@ -1,0 +1,98 @@
+24c24
+<     dial_length = 0.8
+
+---
+>     dial_length = 0.9
+
+26c26,34
+<     dial_width = 0.05
+
+---
+>     dial_width = 0.005
+
+> 
+
+>     min_length = 0.7
+
+>     min_counterlength = 0.1
+
+>     min_width =0.015
+
+> 
+
+>     hr_length = 0.5
+
+>     hr_counterlength = 0.1
+
+>     hr_width =0.03
+
+45,46d52
+< 
+
+<         angle = -360.0 * (time.time() - self.start_time)
+
+47a54,57
+>         t=time.localtime()
+
+> 
+
+>         GL.glPushMatrix()
+
+>         angle = -360.0 * t.tm_sec/60
+
+49d58
+<         
+
+55a65,87
+>         GL.glPopMatrix()
+
+> 
+
+>         GL.glPushMatrix()
+
+>         min_angle = -360.0 * (t.tm_min+t.tm_sec/60)/60
+
+>         GL.glRotatef(min_angle, 0, 0, 1)
+
+>         GL.glBegin(GL.GL_QUADS)
+
+>         GL.glVertex2d(  self.min_width,  self.min_length)
+
+>         GL.glVertex2d(  self.min_width, -self.min_counterlength)
+
+>         GL.glVertex2d( -self.min_width, -self.min_counterlength)
+
+>         GL.glVertex2d( -self.min_width,  self.min_length)
+
+>         GL.glEnd()
+
+>         GL.glPopMatrix()
+
+> 
+
+>         GL.glPushMatrix()
+
+>         hr_angle = -360.0 * (t.tm_hour % 12) / 12 - 0.5 * t.tm_min - (0.5 / 60) * t.tm_sec
+
+>         GL.glRotatef(hr_angle, 0, 0, 1)
+
+>         GL.glBegin(GL.GL_QUADS)
+
+>         GL.glVertex2d(  self.hr_width,  self.hr_length)
+
+>         GL.glVertex2d(  self.hr_width, -self.hr_counterlength)
+
+>         GL.glVertex2d( -self.hr_width, -self.hr_counterlength)
+
+>         GL.glVertex2d( -self.hr_width,  self.hr_length)
+
+>         GL.glEnd()
+
+>         GL.glPopMatrix()
+
+67c99
+<             self.after(5, self.animate)
+
+---
+>             self.after(16, self.animate)
+
